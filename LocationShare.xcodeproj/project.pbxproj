@@ -13,6 +13,10 @@
 		7AA060E72C09B1450006FBA0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AA060E62C09B1450006FBA0 /* Preview Assets.xcassets */; };
 		7AA060F42C09B4CF0006FBA0 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA060F32C09B4CF0006FBA0 /* ShareViewController.swift */; };
 		7AA060FB2C09B4CF0006FBA0 /* Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7AA060F12C09B4CF0006FBA0 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7AA061022C09CAE70006FBA0 /* MapsShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA061012C09CAE70006FBA0 /* MapsShareView.swift */; };
+		7AA061042C09CC8E0006FBA0 /* ExtensionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA061032C09CC8E0006FBA0 /* ExtensionManager.swift */; };
+		7AA061062C09D25A0006FBA0 /* LocationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA061052C09D25A0006FBA0 /* LocationItem.swift */; };
+		7AA061072C09D3120006FBA0 /* LocationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA061052C09D25A0006FBA0 /* LocationItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		7AA060F12C09B4CF0006FBA0 /* Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AA060F32C09B4CF0006FBA0 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7AA060F82C09B4CF0006FBA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AA061002C09C3560006FBA0 /* Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Extension.entitlements; sourceTree = "<group>"; };
+		7AA061012C09CAE70006FBA0 /* MapsShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsShareView.swift; sourceTree = "<group>"; };
+		7AA061032C09CC8E0006FBA0 /* ExtensionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionManager.swift; sourceTree = "<group>"; };
+		7AA061052C09D25A0006FBA0 /* LocationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +100,7 @@
 			children = (
 				7AA060DE2C09B1410006FBA0 /* LocationShareApp.swift */,
 				7AA060E02C09B1410006FBA0 /* ContentView.swift */,
+				7AA061052C09D25A0006FBA0 /* LocationItem.swift */,
 				7AA060E22C09B1450006FBA0 /* Assets.xcassets */,
 				7AA060E42C09B1450006FBA0 /* LocationShare.entitlements */,
 				7AA060E52C09B1450006FBA0 /* Preview Content */,
@@ -110,8 +119,11 @@
 		7AA060F22C09B4CF0006FBA0 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				7AA060F32C09B4CF0006FBA0 /* ShareViewController.swift */,
 				7AA060F82C09B4CF0006FBA0 /* Info.plist */,
+				7AA061002C09C3560006FBA0 /* Extension.entitlements */,
+				7AA061032C09CC8E0006FBA0 /* ExtensionManager.swift */,
+				7AA061012C09CAE70006FBA0 /* MapsShareView.swift */,
+				7AA060F32C09B4CF0006FBA0 /* ShareViewController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -216,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA061062C09D25A0006FBA0 /* LocationItem.swift in Sources */,
 				7AA060E12C09B1410006FBA0 /* ContentView.swift in Sources */,
 				7AA060DF2C09B1410006FBA0 /* LocationShareApp.swift in Sources */,
 			);
@@ -226,6 +239,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AA060F42C09B4CF0006FBA0 /* ShareViewController.swift in Sources */,
+				7AA061072C09D3120006FBA0 /* LocationItem.swift in Sources */,
+				7AA061022C09CAE70006FBA0 /* MapsShareView.swift in Sources */,
+				7AA061042C09CC8E0006FBA0 /* ExtensionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +455,7 @@
 		7AA060FD2C09B4CF0006FBA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5Z48PGX9YU;
@@ -446,7 +463,7 @@
 				INFOPLIST_FILE = Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Extension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,6 +474,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -466,6 +486,7 @@
 		7AA060FE2C09B4CF0006FBA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5Z48PGX9YU;
@@ -473,7 +494,7 @@
 				INFOPLIST_FILE = Extension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Extension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,6 +505,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

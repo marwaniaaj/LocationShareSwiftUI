@@ -6,25 +6,64 @@
 //
 
 import UIKit
-import Social
+import UniformTypeIdentifiers
+import SwiftUI
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: UIViewController {
 
-    override func isContentValid() -> Bool {
-        // Do validation of contentText and/or NSExtensionContext attachments here
-        return true
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard
+            let extensionItem = extensionContext?.inputItems.first as? NSExtensionItem else {
+            self.dismiss()
+            return
+        }
+
+        Task {
+            await handleAttachments(extensionItem.attachments)
+        }
     }
 
-    override func didSelectPost() {
-        // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-    
-        // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+    private func handleAttachments(_ attachments: [NSItemProvider]?) async {
+        if let mapKitItem = attachments?.first(where: { $0.hasItemConformingToTypeIdentifier("com.apple.mapkit.map-item") }) {
+            hostMapsShareView(itemProvider: mapKitItem, itemType: .appleMaps)
+        }
+        else
+        if let googleMapItem = attachments?.first(where: { $0.hasItemConformingToTypeIdentifier(UTType.url.identifier) }) {
+            let itemType = await ExtensionManager.shared.handleUrlType(for: googleMapItem)
+            if itemType == .googleMaps {
+                hostMapsShareView(itemProvider: googleMapItem, itemType: .googleMaps)
+            } else if itemType == .link {
+                // TODO: Handle link url
+            } else {
+                self.dismiss()
+            }
+        } else {
+            self.dismiss()
+        }
     }
 
-    override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return []
+    private func hostMapsShareView(itemProvider: NSItemProvider, itemType: ItemType) {
+        let hostingView = UIHostingController(rootView: MapsShareView(
+                                    itemProvider: itemProvider,
+                                    extensionContext: extensionContext,
+                                    itemType: itemType
+                                ))
+        hostingView.view.frame = view.frame
+        addChild(hostingView)
+        view.addSubview(hostingView.view)
+
+        hostingView.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingView.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        hostingView.view.bottomAnchor.constraint (equalTo: self.view.bottomAnchor).isActive = true
+        hostingView.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        hostingView.view.rightAnchor.constraint (equalTo: self.view.rightAnchor).isActive = true
     }
 
+    func dismiss() {
+        self.extensionContext?.completeRequest(returningItems: [])
+    }
 }
+
+extension NSItemProvider: @unchecked Sendable {}
